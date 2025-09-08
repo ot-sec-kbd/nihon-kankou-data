@@ -19,7 +19,8 @@
       "Bash(./update-function.sh)",
       "Bash(./remove-basic-auth.sh:*)",
       "Bash(rm:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(gh pr create:*)"
     ],
     "deny": []
   }
