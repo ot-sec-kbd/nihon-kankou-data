@@ -1,0 +1,138 @@
+{
+    "CallerReference": "76d6aa0f-9822-f7bf-0cd7-642356066954",
+    "Aliases": {
+        "Quantity": 0
+    },
+    "DefaultRootObject": "getting-started.html",
+    "Origins": {
+        "Quantity": 1,
+        "Items": [
+            {
+                "Id": "S3-stg-japan47go-nihon-kankou-data-v2",
+                "DomainName": "stg-japan47go-nihon-kankou-data-v2.s3.ap-northeast-1.amazonaws.com",
+                "OriginPath": "",
+                "CustomHeaders": {
+                    "Quantity": 0
+                },
+                "S3OriginConfig": {
+                    "OriginAccessIdentity": "origin-access-identity/cloudfront/E2YF62VM4B8P6J"
+                },
+                "ConnectionAttempts": 3,
+                "ConnectionTimeout": 10,
+                "OriginShield": {
+                    "Enabled": false
+                },
+                "OriginAccessControlId": ""
+            }
+        ]
+    },
+    "OriginGroups": {
+        "Quantity": 0
+    },
+    "DefaultCacheBehavior": {
+        "TargetOriginId": "S3-stg-japan47go-nihon-kankou-data-v2",
+        "TrustedSigners": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "TrustedKeyGroups": {
+            "Enabled": false,
+            "Quantity": 0
+        },
+        "ViewerProtocolPolicy": "redirect-to-https",
+        "AllowedMethods": {
+            "Quantity": 3,
+            "Items": [
+                "HEAD",
+                "GET",
+                "OPTIONS"
+            ],
+            "CachedMethods": {
+                "Quantity": 2,
+                "Items": [
+                    "HEAD",
+                    "GET"
+                ]
+            }
+        },
+        "SmoothStreaming": false,
+        "Compress": true,
+        "LambdaFunctionAssociations": {
+            "Quantity": 0
+        },
+        "FunctionAssociations": {
+            "Quantity": 1,
+            "Items": [
+                {
+                    "FunctionARN": "arn:aws:cloudfront::540638230969:function/stg-nihon-kankou-basic-auth",
+                    "EventType": "viewer-request"
+                }
+            ]
+        },
+        "FieldLevelEncryptionId": "",
+        "GrpcConfig": {
+            "Enabled": false
+        },
+        "ForwardedValues": {
+            "QueryString": false,
+            "Cookies": {
+                "Forward": "none"
+            },
+            "Headers": {
+                "Quantity": 0
+            },
+            "QueryStringCacheKeys": {
+                "Quantity": 0
+            }
+        },
+        "MinTTL": 0,
+        "DefaultTTL": 86400,
+        "MaxTTL": 31536000
+    },
+    "CacheBehaviors": {
+        "Quantity": 0
+    },
+    "CustomErrorResponses": {
+        "Quantity": 2,
+        "Items": [
+            {
+                "ErrorCode": 403,
+                "ResponsePagePath": "/error.html",
+                "ResponseCode": "403",
+                "ErrorCachingMinTTL": 300
+            },
+            {
+                "ErrorCode": 404,
+                "ResponsePagePath": "/error.html",
+                "ResponseCode": "404",
+                "ErrorCachingMinTTL": 300
+            }
+        ]
+    },
+    "Comment": "stg - Japan 47 GO Nihon Kankou Data",
+    "Logging": {
+        "Enabled": false,
+        "IncludeCookies": false,
+        "Bucket": "",
+        "Prefix": ""
+    },
+    "PriceClass": "PriceClass_200",
+    "Enabled": true,
+    "ViewerCertificate": {
+        "CloudFrontDefaultCertificate": true,
+        "SSLSupportMethod": "vip",
+        "MinimumProtocolVersion": "TLSv1",
+        "CertificateSource": "cloudfront"
+    },
+    "Restrictions": {
+        "GeoRestriction": {
+            "RestrictionType": "none",
+            "Quantity": 0
+        }
+    },
+    "WebACLId": "",
+    "HttpVersion": "http2",
+    "IsIPV6Enabled": true,
+    "ContinuousDeploymentPolicyId": "",
+    "Staging": false
+}
