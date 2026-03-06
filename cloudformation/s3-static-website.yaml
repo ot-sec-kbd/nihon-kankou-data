@@ -9,9 +9,18 @@ Parameters:
       - stg
       - prod
     Description: Environment name (stg or prod)
+  DomainName:
+    Type: String
+    Default: ''
+    Description: Custom domain name (e.g., kankou-data.nihon-kankou-dx.info)
+  AcmCertificateArn:
+    Type: String
+    Default: ''
+    Description: ACM certificate ARN in us-east-1
 
 Conditions:
   IsStg: !Equals [!Ref Environment, 'stg']
+  HasCustomDomain: !Not [!Equals [!Ref DomainName, '']]
 
 Resources:
   S3Bucket:
@@ -123,9 +132,17 @@ Resources:
           MinTTL: 0
           DefaultTTL: 86400
           MaxTTL: 31536000
+        Aliases: !If
+          - HasCustomDomain
+          - - !Ref DomainName
+          - !Ref 'AWS::NoValue'
         PriceClass: PriceClass_200
-        ViewerCertificate:
-          CloudFrontDefaultCertificate: true
+        ViewerCertificate: !If
+          - HasCustomDomain
+          - AcmCertificateArn: !Ref AcmCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - CloudFrontDefaultCertificate: true
         CustomErrorResponses:
           - ErrorCode: 404
             ResponseCode: 404
