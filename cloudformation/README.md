@@ -65,8 +65,8 @@ aws_secret_access_key = PROD_SECRET_KEY
 
 ## バケット名
 
-- STG環境: `stg-japan47go-nihon-kankou-data-v2`
-- PROD環境: `prod-japan47go-nihon-kankou-data-v2`
+- STG環境: `stg-japan47go-nihon-kankou-data`
+- PROD環境: `prod-japan47go-nihon-kankou-data`
 
 ## 注意事項
 

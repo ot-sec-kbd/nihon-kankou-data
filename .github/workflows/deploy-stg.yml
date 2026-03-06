@@ -29,7 +29,7 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync . s3://stg-japan47go-nihon-kankou-data-v2/ \
+          aws s3 sync . s3://stg-japan47go-nihon-kankou-data/ \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude ".claude/*" \
@@ -42,5 +42,5 @@ jobs:
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id E3649R5D3WXTTK \
+            --distribution-id E3QC8LMW5CL0ZJ \
             --paths "/*"

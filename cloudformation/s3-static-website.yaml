@@ -10,6 +10,9 @@ Parameters:
       - prod
     Description: Environment name (stg or prod)
 
+Conditions:
+  IsStg: !Equals [!Ref Environment, 'stg']
+
 Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
@@ -17,15 +20,12 @@ Resources:
       BucketName: !Join
         - ''
         - - !Ref Environment
-          - '-japan47go-nihon-kankou-data-v2'
-      WebsiteConfiguration:
-        IndexDocument: getting-started.html
-        ErrorDocument: error.html
+          - '-japan47go-nihon-kankou-data'
       PublicAccessBlockConfiguration:
-        BlockPublicAcls: false
-        BlockPublicPolicy: false
-        IgnorePublicAcls: false
-        RestrictPublicBuckets: false
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
@@ -46,9 +46,10 @@ Resources:
       Bucket: !Ref S3Bucket
       PolicyDocument:
         Statement:
-          - Sid: PublicReadGetObject
+          - Sid: AllowCloudFrontOAI
             Effect: Allow
-            Principal: '*'
+            Principal:
+              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
             Action:
               - s3:GetObject
             Resource: !Sub '${S3Bucket.Arn}/*'
@@ -57,8 +58,37 @@ Resources:
     Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
     Properties:
       CloudFrontOriginAccessIdentityConfig:
-        Comment: !Sub 'OAI for ${Environment}-japan47go-nihon-kankou-data'
+        Comment: !Sub 'OAI for ${Environment}-japan47go-nihon-kankou-data-bucket'
 
+
+  BasicAuthFunction:
+    Type: AWS::CloudFront::Function
+    Condition: IsStg
+    Properties:
+      Name: !Sub '${Environment}-nihon-kankou-basic-auth'
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Basic authentication for STG environment
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+            var request = event.request;
+            var headers = request.headers;
+            var authString = "Basic bnRhMjAyNTpudGEyMDI1";
+            if (
+                typeof headers.authorization === "undefined" ||
+                headers.authorization.value !== authString
+            ) {
+                return {
+                    statusCode: 401,
+                    statusDescription: "Unauthorized",
+                    headers: {
+                        "www-authenticate": { value: "Basic realm=\"Enter credentials\"" }
+                    }
+                };
+            }
+            return request;
+        }
 
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
@@ -85,6 +115,11 @@ Resources:
             QueryString: false
             Cookies:
               Forward: none
+          FunctionAssociations: !If
+            - IsStg
+            - - EventType: viewer-request
+                FunctionARN: !GetAtt BasicAuthFunction.FunctionARN
+            - !Ref 'AWS::NoValue'
           MinTTL: 0
           DefaultTTL: 86400
           MaxTTL: 31536000
@@ -107,12 +142,6 @@ Outputs:
     Value: !Ref S3Bucket
     Export:
       Name: !Sub '${AWS::StackName}-BucketName'
-
-  WebsiteURL:
-    Description: URL of the S3 website
-    Value: !GetAtt S3Bucket.WebsiteURL
-    Export:
-      Name: !Sub '${AWS::StackName}-WebsiteURL'
 
   CloudFrontURL:
     Description: URL of the CloudFront distribution

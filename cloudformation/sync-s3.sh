@@ -36,8 +36,8 @@ fi
 ENVIRONMENT_LOWER=$(echo "$ENVIRONMENT" | tr '[:upper:]' '[:lower:]')
 
 # 変数設定
-BUCKET_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-v2"
-STACK_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-stack-v2"
+BUCKET_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data"
+STACK_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-stack"
 REGION="ap-northeast-1"
 SOURCE_DIR="../"
 
