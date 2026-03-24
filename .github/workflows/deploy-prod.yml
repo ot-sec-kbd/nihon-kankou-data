@@ -1,12 +1,12 @@
-name: Deploy to STG S3
+name: Deploy to PROD S3
 
 on:
   push:
     branches:
-      - develop
+      - main
   pull_request:
     branches:
-      - develop
+      - main
     types:
       - closed
 
@@ -29,7 +29,7 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync . s3://stg-japan47go-nihon-kankou-data/ \
+          aws s3 sync . s3://prod-japan47go-nihon-kankou-data/ \
             --exclude ".git/*" \
             --exclude ".github/*" \
             --exclude ".claude/*" \
@@ -43,5 +43,5 @@ jobs:
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id E3QC8LMW5CL0ZJ \
+            --distribution-id E4T69B9NTO0PR \
             --paths "/*"
