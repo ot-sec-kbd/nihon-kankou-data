@@ -36,8 +36,8 @@ fi
 ENVIRONMENT_LOWER=$(echo "$ENVIRONMENT" | tr '[:upper:]' '[:lower:]')
 
 # 変数設定
-STACK_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-stack-v2"
-BUCKET_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-v2"
+STACK_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data-stack"
+BUCKET_NAME="${ENVIRONMENT_LOWER}-japan47go-nihon-kankou-data"
 TEMPLATE_FILE="s3-static-website.yaml"
 REGION="ap-northeast-1"
 
