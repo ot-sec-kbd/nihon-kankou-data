@@ -92,6 +92,16 @@
             margin-top: 40px;
         }
 
+        .download-group-title {
+            color: #2196F3;
+            font-size: 24px;
+            margin: 40px 0 0 0;
+        }
+
+        .download-group-title + .download-grid {
+            margin-top: 20px;
+        }
+
         .download-card {
             background: #fff;
             border: 1px solid #e0e0e0;
@@ -131,6 +141,42 @@
 
         .download-btn:hover {
             background-color: #8a0018;
+        }
+
+        .api-doc-request {
+            margin-top: 50px;
+            padding: 40px 30px;
+            text-align: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .api-doc-request h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .api-doc-request p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+
+        .api-doc-request-btn {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 25px;
+            transition: background-color 0.3s;
+        }
+
+        .api-doc-request-btn:hover {
+            background-color: #1976D2;
         }
 
         .contact-section {
@@ -250,6 +296,7 @@
                 <h2>ダウンロード可能な資料</h2>
                 <p>以下の資料を個別にダウンロードしてご利用いただけます。</p>
                 
+                <h3 class="download-group-title">（1）全国観光情報データベース</h3>
                 <div class="download-grid">
                     <div class="download-card">
                         <h3>全国観光情報データベース概要</h3>
@@ -287,6 +334,10 @@
                         <a href="docs/japan47go-overview.pdf" class="download-btn" download>PDFダウンロード</a>
                     </div>
 
+                </div>
+
+                <h3 class="download-group-title">（2）宿泊動向ビッグデータ「観光予報プラットフォーム」</h3>
+                <div class="download-grid">
                     <div class="download-card">
                         <h3>パンフレットサービスに関するご案内</h3>
                         <p>観光予報プラットフォームのパンフレットサービスについてご案内しています。</p>
@@ -304,6 +355,12 @@
                         <p>観光予報プラットフォームのAPI仕様書です。システム連携をお考えの方はこちらをご確認ください。</p>
                         <a href="https://docs.kankouyohou.com/kankouyohou_api.pdf" class="download-btn" target="_blank">PDFを見る</a>
                     </div>
+                </div>
+
+                <div class="api-doc-request">
+                    <h3>全国観光情報データベースAPIに関する資料ダウンロード</h3>
+                    <p>全国観光情報データベース（Japan 47 Go）のAPI連携についての資料をご覧いただけます。導入費用やよくあるご質問をまとめてあります。<br>フォームから必要事項をご記入の上、お問い合わせください。</p>
+                    <a href="https://forms.gle/C4GC2GY1RkvkQyX46" class="api-doc-request-btn" target="_blank" rel="noopener">資料をダウンロード</a>
                 </div>
             </section>
         </div>
